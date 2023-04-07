@@ -1,4 +1,4 @@
-package com.example.stickynotesapplication
+package com.example.stickynotesapplication.features.note.presentation
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
