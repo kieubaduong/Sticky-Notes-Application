@@ -7,7 +7,7 @@ import com.example.stickynotesapplication.features.note.domain.util.OrderType
 import kotlinx.coroutines.flow.Flow
 
 class GetNotesUseCase(
-    repository: NoteRepository
+    private val repository: NoteRepository
 ) {
     operator fun invoke(noteOrder: NoteOrder = NoteOrder.Date(OrderType.Descending)) : Flow<List<Note>> {
         return repository.getAllNotes()
