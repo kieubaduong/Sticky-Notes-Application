@@ -6,10 +6,7 @@ import androidx.room.RoomDatabase
 import com.example.stickynotesapplication.features.note.data.data_source.NoteDatabase
 import com.example.stickynotesapplication.features.note.data.repository.NoteRepositoryImpl
 import com.example.stickynotesapplication.features.note.domain.repository.NoteRepository
-import com.example.stickynotesapplication.features.note.domain.use_case.AddNoteUseCase
-import com.example.stickynotesapplication.features.note.domain.use_case.DeleteNoteUseCase
-import com.example.stickynotesapplication.features.note.domain.use_case.GetNotesUseCase
-import com.example.stickynotesapplication.features.note.domain.use_case.NoteUseCase
+import com.example.stickynotesapplication.features.note.domain.use_case.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -46,7 +43,8 @@ object AppModule {
         return NoteUseCase(
             getNotesUseCase = GetNotesUseCase(repository),
             deleteNoteUseCase = DeleteNoteUseCase(repository),
-            addNoteUseCase = AddNoteUseCase(repository)
+            addNoteUseCase = AddNoteUseCase(repository),
+            getNoteUseCase = GetNoteUseCase(repository),
         )
     }
 }

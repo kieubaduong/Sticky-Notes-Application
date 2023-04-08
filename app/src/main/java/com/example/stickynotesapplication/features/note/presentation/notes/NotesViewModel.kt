@@ -41,9 +41,7 @@ class NotesViewModel @Inject constructor(
                 ){
                     return
                 }
-                _state.value = _state.value.copy(
-                    noteOrder = event.noteOrder
-                )
+                getNotes(event.noteOrder)
             }
             is NotesEvent.DeleteNote -> {
                 viewModelScope.launch {
