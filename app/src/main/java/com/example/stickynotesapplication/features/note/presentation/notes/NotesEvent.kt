@@ -1,4 +1,4 @@
-package com.example.stickynotesapplication.features.note.presentation.notes.components
+package com.example.stickynotesapplication.features.note.presentation.notes
 
 import com.example.stickynotesapplication.features.note.domain.model.Note
 import com.example.stickynotesapplication.features.note.domain.util.NoteOrder
