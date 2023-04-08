@@ -1,6 +1,7 @@
-package com.example.stickynotesapplication.features.note.presentation.notes.components
+package com.example.stickynotesapplication.features.note.presentation.notes
 
 import androidx.compose.animation.*
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.*
@@ -14,10 +15,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.example.stickynotesapplication.features.note.presentation.notes.NotesEvent
-import com.example.stickynotesapplication.features.note.presentation.notes.NotesViewModel
+import com.example.stickynotesapplication.features.note.presentation.notes.components.NoteItem
+import com.example.stickynotesapplication.features.note.presentation.notes.components.OrderSection
+import com.example.stickynotesapplication.features.note.presentation.util.Screen
 import kotlinx.coroutines.launch
 
+@ExperimentalAnimationApi
 @Composable
 fun NotesScreen(
     navController: NavController,
@@ -30,7 +33,9 @@ fun NotesScreen(
     Scaffold(
         floatingActionButton = {
             FloatingActionButton(
-                onClick = { },
+                onClick = {
+                    navController.navigate(Screen.AddEditNoteScreen.route)
+                },
                 backgroundColor = MaterialTheme.colors.primary,
             ) {
                 Icon(imageVector = Icons.Default.Add, contentDescription = "Add Note")
@@ -81,7 +86,14 @@ fun NotesScreen(
                     NoteItem(
                         note = state.notes[index],
                         modifier = Modifier
-                            .fillMaxWidth(),
+                            .fillMaxWidth()
+                            .clickable(
+                                onClick = {
+                                    navController.navigate(
+                                        Screen.AddEditNoteScreen.route +"?noteId=${state.notes[index].id}&noteColor=${state.notes[index].color}"
+                                    )
+                                }
+                            ),
                         onDeleteClick = {
                             viewModel.onEvent(NotesEvent.DeleteNote(state.notes[index]))
                             scope.launch {

@@ -2,7 +2,6 @@ package com.example.stickynotesapplication.di
 
 import android.app.Application
 import androidx.room.Room
-import androidx.room.RoomDatabase
 import com.example.stickynotesapplication.features.note.data.data_source.NoteDatabase
 import com.example.stickynotesapplication.features.note.data.repository.NoteRepositoryImpl
 import com.example.stickynotesapplication.features.note.domain.repository.NoteRepository
@@ -31,7 +30,7 @@ object AppModule {
     @Singleton
     fun provideNoteRepository(
         db: NoteDatabase
-    ) : NoteRepository{
+    ): NoteRepository {
         return NoteRepositoryImpl(db.noteDao)
     }
 
@@ -39,7 +38,7 @@ object AppModule {
     @Singleton
     fun provideNoteUseCase(
         repository: NoteRepository
-    ) : NoteUseCase {
+    ): NoteUseCase {
         return NoteUseCase(
             getNotesUseCase = GetNotesUseCase(repository),
             deleteNoteUseCase = DeleteNoteUseCase(repository),

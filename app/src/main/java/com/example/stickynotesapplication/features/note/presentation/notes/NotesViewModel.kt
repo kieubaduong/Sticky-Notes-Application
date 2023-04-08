@@ -8,8 +8,6 @@ import com.example.stickynotesapplication.features.note.domain.model.Note
 import com.example.stickynotesapplication.features.note.domain.use_case.NoteUseCase
 import com.example.stickynotesapplication.features.note.domain.util.NoteOrder
 import com.example.stickynotesapplication.features.note.domain.util.OrderType
-import com.example.stickynotesapplication.features.note.presentation.notes.NotesEvent
-import com.example.stickynotesapplication.features.note.presentation.notes.NotesState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.launchIn

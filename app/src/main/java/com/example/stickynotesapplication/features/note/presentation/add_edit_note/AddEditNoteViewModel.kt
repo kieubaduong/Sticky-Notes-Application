@@ -8,7 +8,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.stickynotesapplication.features.note.domain.model.InvalidNoteException
 import com.example.stickynotesapplication.features.note.domain.model.Note
-import com.example.stickynotesapplication.features.note.domain.use_case.AddNoteUseCase
 import com.example.stickynotesapplication.features.note.domain.use_case.NoteUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -100,9 +99,10 @@ class AddEditNoteViewModel @Inject constructor(
             }
         }
     }
+
+    sealed class UiEvent {
+        data class ShowSnackBar(val message: String) : UiEvent()
+        object SaveNote : UiEvent()
+    }
 }
 
-sealed class UiEvent {
-    data class ShowSnackBar(val message: String) : UiEvent()
-    object SaveNote : UiEvent()
-}

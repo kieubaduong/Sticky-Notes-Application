@@ -11,6 +11,7 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Save
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
@@ -19,6 +20,7 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.stickynotesapplication.features.note.domain.model.Note
 import com.example.stickynotesapplication.features.note.presentation.add_edit_note.components.TransparentHintTextField
@@ -28,7 +30,7 @@ import kotlinx.coroutines.launch
 fun AddEditNoteScreen(
     navController: NavController,
     noteColor: Int,
-    viewModel: AddEditNoteViewModel,
+    viewModel: AddEditNoteViewModel = hiltViewModel(),
 ) {
     val titleState = viewModel.noteTitle.value
     val contentState = viewModel.noteContent.value
@@ -40,6 +42,21 @@ fun AddEditNoteScreen(
     }
 
     val scope = rememberCoroutineScope()
+
+    LaunchedEffect(key1 = true ){
+        viewModel.eventFlow.collect { event ->
+            when(event){
+                is AddEditNoteViewModel.UiEvent.ShowSnackBar -> {
+                    scaffoldState.snackbarHostState.showSnackbar(
+                        message = event.message
+                    )
+                }
+                is AddEditNoteViewModel.UiEvent.SaveNote -> {
+                    navController.navigateUp()
+                }
+            }
+        }
+    }
 
     Scaffold(
         floatingActionButton = {
@@ -72,7 +89,6 @@ fun AddEditNoteScreen(
                     Box(
                         modifier = Modifier
                             .size(50.dp)
-                            .background(color = color)
                             .shadow(15.dp, CircleShape)
                             .clip(CircleShape)
                             .background(color = color)
